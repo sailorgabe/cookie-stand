@@ -1,0 +1,29 @@
+const locations = [Seattle, Tokyo, Dubai, Paris, Lima];
+
+function renderSalesData() {
+  const salesList = document.getElementById('sales-data-list'); // Assuming an unordered list with this ID in `sales.html`
+
+  locations.forEach(location => {
+    calculateHourlySales(location);
+    
+    const locationElement = document.createElement('li');
+    const hourlySalesList = document.createElement('ul');
+    locationElement.textContent = location.name;
+    location.hourlySales.forEach((sale, index) => {
+      const time = (index + 6 <= 12) ? `${index + 6}am` : `${(index + 6) - 12}pm`;
+      const hourlySaleElement = document.createElement('li');
+      hourlySaleElement.textContent = `${time}: ${sale} cookies`;
+      hourlySalesList.appendChild(hourlySaleElement);
+    });
+    const totalElement = document.createElement('li');
+    totalElement.textContent = `Total: ${location.totalCookies} cookies`;
+    hourlySalesList.appendChild(totalElement);
+    
+    locationElement.appendChild(hourlySalesList);
+    salesList.appendChild(locationElement);
+  });
+}
+<ul id="sales-data-list"></ul>
+
+// Call the function to render the data
+renderSalesData();
